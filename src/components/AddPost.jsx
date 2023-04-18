@@ -78,7 +78,7 @@ const AddPost = () => {
 
     return (
 
-        <div className=' rounded-xl  p-3 backdrop-blur-md bg-gray-500  w-full sticky sm:w-3/5 py-5 z-30 top-1 '>
+        <div className=' rounded-xl  p-3 backdrop-blur-md bg-gray-500  w-full sticky py-5 z-30 top-1 '>
             <div className='flex items-center justify-between gap-2'>
                 <RiLogoutCircleRLine size={30} className='text-white cursor-pointer hover:text-red-500' onClick={handleLogout} />
                 <div className='relative w-4/5'>
