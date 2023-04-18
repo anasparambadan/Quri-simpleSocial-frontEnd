@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import loginImg from '../assets/loginImg.jpg'
 import { BsEye } from 'react-icons/bs'
 import {signup } from '../redux/actions/authActions'
@@ -49,7 +49,7 @@ const Signup = () => {
     return (
         <div>
             <section className=' min-h-screen flex items-center justify-center'>
-                <div className='bg-gray-100 flex rounded-2xl shadow-lg max-w-2xl p-5 items-center'>
+                <div className='bg-gray-200 flex rounded-2xl shadow-lg max-w-2xl p-5 items-center'>
 
                     <div className='md:w-1/2 px-8'>
                         <h2 className='font-bold text-2xl'>Sign Up</h2>
@@ -125,7 +125,7 @@ const Signup = () => {
                         <div className='mt-3 '><hr /></div>
                         <div className='text-sm flex items-center justify-around mt-3'>
                             <p className='text-sm'>Already have an account?</p>
-                            <button className='py-2 px-5 bg-gray-200 border rounded-xl' onClick={handleLogin}>Login</button>
+                            <button className='py-2 px-5 bg-gray-200 border rounded-xl text-blue-400' onClick={handleLogin}>Login</button>
                         </div>
                     </div>
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import loginImg from '../assets/loginImg.jpg'
 import { BsEye } from 'react-icons/bs'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { login } from '../redux/actions/authActions'
 import { useFormik } from "formik"
 import * as Yup from "yup"
@@ -26,17 +26,7 @@ const Logins = () => {
         initialValues: initialValues,
         validationSchema: loginSchema,
         onSubmit: async(values, action) => {
-          
-            
-         const response =  await dispatch(login(values))
-        
-         
-          
-        
-    
-          
-
-          
+          await dispatch(login(values))
             
             action.resetForm()
         },
@@ -93,8 +83,8 @@ const Logins = () => {
                             <p>Forgot password?</p>
                         </div>
                         <div className='text-sm flex items-center justify-around mt-3'>
-                            <p className='text-sm'>"Don't have an account?</p>
-                            <button className='py-2 px-5 bg-gray-200 border rounded-xl' onClick={handleSignup} > Sign Up</button>
+                            <p className='text-sm'>Don't have an account?</p>
+                            <button className='py-2 px-5 bg-gray-200 border rounded-xl text-blue-500' onClick={handleSignup} > Sign Up</button>
                         </div>
                     </div>
 

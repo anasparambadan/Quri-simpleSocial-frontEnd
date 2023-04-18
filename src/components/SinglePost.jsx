@@ -14,6 +14,7 @@ const SinglePost = ({ data }) => {
 
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.authReducer.authData)
+  
   const [postData, setPostData] = useState(null)
 
 
@@ -88,7 +89,7 @@ const SinglePost = ({ data }) => {
 
 
       <img className=' max-h-96 object-contain  rounded-md'
-        src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""}
+        src={data.image ? data.image : ""}
         alt=""
       />
       <div className="detail flex justify-start">

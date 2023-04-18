@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { FcRemoveImage } from 'react-icons/fc'
 import { FcEditImage } from 'react-icons/fc'
-import { editPost, uploadImage, uploadPost } from '../redux/actions/postActions'
+import { editPost, uploadImage } from '../redux/actions/postActions'
 import { useDispatch, useSelector } from 'react-redux'
+
 
 
 const EditModal = (props) => {
@@ -18,7 +19,6 @@ const EditModal = (props) => {
     const imageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             let img = e.target.files[0]
-           
             setImages(img)
 
         }
@@ -34,42 +34,49 @@ const EditModal = (props) => {
         props.modalState()
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
 
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
 
-        const newPost = {
-            caption: captioin,
-            userId: user._id
-
-        }
-        if (images) {
-            const data = new FormData();
-            const fileName = Date.now() + images.name;
-            data.append("name", fileName)
-            data.append("file", images)
-            newPost.image = fileName
-            try {
-
-                dispatch(uploadImage(data))
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        else{
-            newPost.image = ''
-        }
-       
-
-        dispatch(editPost(newPost, postId))
-        reset()
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
     }
+
+    
+const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const newPost = {
+        userId: user._id,
+        caption: captioin,
+        image:image
+    }
+    if (images) {
+        try {
+            const base64 = await convertBase64(images);
+            const imgUrl = await dispatch(uploadImage({ image: base64 }))
+            newPost.image = imgUrl
+        } catch (error) {
+            console.log(error)
+        }
+    }
+   
+    dispatch(editPost(newPost,postId))
+    reset()
+}
  
 
 
     return (
         <div> <div>
-            <div className="relative z-10 " aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div className="relative z-40 " aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -97,7 +104,7 @@ const EditModal = (props) => {
 
                                                 <div className='p-2 underline'>
                                                 <h6>Image: </h6>
-                                                {images ? <img src={URL.createObjectURL(images)} alt="" />:<img src={props.data.image ? process.env.REACT_APP_PUBLIC_FOLDER + image : ""} alt="" />}
+                                                {images ? <img src={URL.createObjectURL(images)} alt="" />:<img src={props.data.image ? image : ""} alt="" />}
 
                                                 </div>
 

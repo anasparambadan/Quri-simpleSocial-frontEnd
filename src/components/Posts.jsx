@@ -11,7 +11,7 @@ const Posts = () => {
 
   
   const getUserPosts = ()=>{
-    const allPosts =   dispatch(getAllPosts(user._id))
+    dispatch(getAllPosts(user._id))
   }
   useEffect(() => {
     getUserPosts()
@@ -20,7 +20,7 @@ const Posts = () => {
   
   
   return (
-    <div className='flex flex-col gap-8 mt-28'>
+    <div className='flex flex-col gap-8 mt-2'>
       {posts.map((post)=>{
         return <SinglePost data = {post} key={post._id} />
       })}

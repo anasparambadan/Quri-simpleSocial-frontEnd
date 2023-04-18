@@ -1,9 +1,11 @@
 import * as postApi from '../../api/postRequest'
 
-export const uploadImage = (data)=> async(dispatch)=>{
+export const uploadImage = (image)=> async(dispatch)=>{
+    dispatch({type:"UPLOAD_START"})
     try {
-        console.log(data,'data at upload image')
-        await postApi.uploadImage(data)
+      const imgUrl =   await postApi.uploadImage(image)
+      dispatch({type:"IMG_UPLOAD"})
+      return imgUrl.data
     } catch (error) {
         console.log(error)
     }
