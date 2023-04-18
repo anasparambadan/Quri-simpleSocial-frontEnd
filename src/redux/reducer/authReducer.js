@@ -25,6 +25,9 @@ const authReducer = (state = initialState, action) => {
             localStorage.clear();
             return { ...state, authData: null, loading: false, error: false }
 
+        case "LOADER_OFF":
+            return {...state,loading:false}
+
         default:
             return state;
     }

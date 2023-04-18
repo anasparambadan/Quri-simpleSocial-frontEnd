@@ -2,11 +2,22 @@
 import * as authApi from '../../api/authRequest'
 
 export const login = (formData) => async (dispatch) => {
+    
     dispatch({ type: "AUTH_START" })
     try {
         const {data}  = await authApi.login(formData)
+        console.log(data,'dalllllllll')
 
-        dispatch({type:"AUTH_COMPLETE", data})
+        if(data.user){
+           
+            dispatch({type:"AUTH_COMPLETE", data})
+            
+        }
+        else{
+            dispatch({type:"LOADER_OFF"})   
+        }
+        return data
+    
 
     } catch (error) {
         console.log(error)
@@ -19,6 +30,7 @@ export const signup =(formData)=> async(dispatch)=>{
     dispatch({ type: "AUTH_START" })
     try {
         const { data } = await authApi.signup(formData)
+       
 
         dispatch({type:"AUTH_COMPLETE", data})
 

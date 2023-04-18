@@ -6,6 +6,7 @@ import { login } from '../redux/actions/authActions'
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast';
 
 const Logins = () => {
 
@@ -19,14 +20,16 @@ const Logins = () => {
 
     const  loginSchema = Yup.object({
         email:Yup.string().email().required("Please enter your Email"),
-        password: Yup.string().min(3).required("Please enter your Password"),
+        password: Yup.string().min(5).required("Please enter your Password"),
     })
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit, handleReset } = useFormik({
         initialValues: initialValues,
         validationSchema: loginSchema,
         onSubmit: async(values, action) => {
-          await dispatch(login(values))
+         const data =  await dispatch(login(values))
+        
+         toast.error(data.message);
             
             action.resetForm()
         },
@@ -41,7 +44,7 @@ const Logins = () => {
 
     return (
         <div>
-            
+              <Toaster/>
             <section className=' min-h-screen flex items-center justify-center'>
                 <div className='bg-gray-200 flex rounded-2xl shadow-lg max-w-2xl p-5 items-center'>
 
